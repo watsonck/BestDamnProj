@@ -9,9 +9,12 @@ def elecinfo(fname):
         info = []
         next(filereader)
         for line in filereader:
-             info.append([line[5],line[6],line[9]])
+            if line[5] != '' and line[6] != '':
+                line[5] = int(line[5])
+                info.append([line[5],line[6],line[9]])
     return info
-
+#added line 20 to the first for loop
+'''
 def rembad(oldlst):
     newlst = []
     for line in oldlst:
@@ -19,12 +22,28 @@ def rembad(oldlst):
             newlst.append(line)
             int(newlst[[0]])
     return newlst
+'''
 
-def formatdata(oldlst):
-    ...
+def memoize(f):
+    memo = {}
+    def helper(x):
+        if x not in memo:
+            memo[x] = f(x)
+        return memo[x]
+    return helper
 
-def dictMaker():
-    ...
+
+def dictMaker(oldlst):
+    newdict = {}
+    for el in oldlst:
+        newdict.update({(el[1],el[2]) : el[0]})
+         
+                
+    return newdict
+        
+
+
+
 
 #TODO create decorator add all democrat, republican and independent votes per locality
 
@@ -33,8 +52,14 @@ info18 = elecinfo("2018NovGen.csv")
 info17 = elecinfo("2017NovGen.csv")
 info16 = elecinfo("2016NovGen.csv")
 
-format16 = rembad(info16)
+format16 = dictMaker(info16)
 fil = open("regfile16.txt", "w")
-#for line in format16:
-    #print(line, file = fil)
-print(format16, file= fil)
+print(format16, file=fil)
+fil.close()
+        
+infofil = open('can_votes.txt','w')
+
+
+for i in range(0,len(info16)-1):
+    print(info16[i], file = infofil)
+infofil.close()
