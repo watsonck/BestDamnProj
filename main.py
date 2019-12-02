@@ -2,8 +2,8 @@ import csv
 import sys
 from numpy import *
 
+#Takes in NovGen16-19 files and filters out the info we dont care about
 def elecinfo(fname):
-    txt = open('can_votes.txt', 'w')
     with open(fname,"r") as fitem:
         filereader = csv.reader(fitem)
         info = []
@@ -14,13 +14,21 @@ def elecinfo(fname):
                 info.append([line[5],line[6],line[9]])
     return info
 
+#Makes the dictionary and adds votes to the map if the key is the same
 def dictMaker(oldlst):
     newdict = {}
     for el in oldlst:
-        newdict.update({(el[1],el[2]) : el[0]})
-                
+        #if (el[1],el[2]) in newdict:
+            #newdict[(el[1],el[2])] += el[0]
+        #else:
+            #newdict.update({(el[1],el[2]) : el[0]})
+        if el[1] in newdict:
+            newdict[el[1]] += el[0]
+        else:
+            newdict.update({el[1]:el[0]})   
     return newdict
         
+#Makes file for the dictionary
 def fileMaker(lst, fil):
     ofil = open(fil,'w')
     print(lst,file=ofil)
@@ -46,9 +54,9 @@ toGraph19 = fileMaker(format19, 'regfile19.txt')
 
 
         
-#infofil = open('can_votes.txt','w')
+infofil = open('can_votes.txt','w')
 
 
-#for i in range(0,len(info16)-1):
-#    print(info16[i], file = infofil)
-#infofil.close()
+for i in range(0,len(info16)-1):
+    print(info16[i], file = infofil)
+infofil.close()
