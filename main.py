@@ -73,23 +73,22 @@ print(format16)
 labels19 = ['Independent','Republican','Democratic','Write-In','Libertarian']
 values19 = [format19['Independent'],format19['Republican'],format19['Democratic'],format19['Write-In'],format19['Libertarian']]
 
-index = np.arange(len(labels))
-plt.bar(index19 values19)
+index19 = np.arange(len(labels19))
+plt.bar(index19, values19)
 plt.xlabel("political party")
 plt.ylabel("# of votes")
 plt.xticks(index19, labels19)
 plt.title("2019 party comparison")
 plt.show()
-'''
+
 labels18 = ['Independent','Republican','Democratic','Libertarian','Write-In']
 values18 = [format18['Independent'],format18['Republican'],format18['Democratic'],format18['Libertarian'],format18['Write-In']]
 
 index18 = np.arange(len(labels18))
-plt.bar(index, values)
+plt.bar(index18, values18)
 plt.xlabel("political party")
 plt.ylabel("# of votes")
-plt.xticks(index, labels)
-plt.title("2019 party comparison")
+plt.xticks(index18, labels18)
+plt.title("2018 party comparison")
 plt.show()
 
-'''
