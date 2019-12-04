@@ -1,6 +1,8 @@
 import csv
 import sys
-from numpy import *
+#from numpy import *
+import matplotlib.pyplot as plt
+import numpy as np
 
 #Takes in NovGen16-19 files and filters out the info we dont care about
 def elecinfo(fname):
@@ -60,3 +62,34 @@ infofil = open('can_votes.txt','w')
 for i in range(0,len(info16)-1):
     print(info16[i], file = infofil)
 infofil.close()
+
+print(format19)
+print(format18)
+print(format17)
+print(format16)
+
+#making graphs
+
+labels19 = ['Independent','Republican','Democratic','Write-In','Libertarian']
+values19 = [format19['Independent'],format19['Republican'],format19['Democratic'],format19['Write-In'],format19['Libertarian']]
+
+index = np.arange(len(labels))
+plt.bar(index19 values19)
+plt.xlabel("political party")
+plt.ylabel("# of votes")
+plt.xticks(index19, labels19)
+plt.title("2019 party comparison")
+plt.show()
+'''
+labels18 = ['Independent','Republican','Democratic','Libertarian','Write-In']
+values18 = [format18['Independent'],format18['Republican'],format18['Democratic'],format18['Libertarian'],format18['Write-In']]
+
+index18 = np.arange(len(labels18))
+plt.bar(index, values)
+plt.xlabel("political party")
+plt.ylabel("# of votes")
+plt.xticks(index, labels)
+plt.title("2019 party comparison")
+plt.show()
+
+'''
