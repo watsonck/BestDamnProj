@@ -114,7 +114,7 @@ if year == "all" and area == "state":
 
     ax.set_ylabel('Votes')
     
-    ax.set_title('Goofy Goobers')
+    ax.set_title('Virginia Party voytes through the Year')
     ax.set_xticks(x)
     ax.set_xticklabels(labels, fontsize = 6)
     ax.legend()
@@ -122,6 +122,9 @@ if year == "all" and area == "state":
 
 
 
+
+#-----------------------------------------------------------------------------------
+#Specific year in the state
 if year != "all" and area == "state":
     if year == "2019":
         format19 = stateDictMaker(info19)
@@ -143,10 +146,80 @@ if year != "all" and area == "state":
         ax.axis('equal')
         plt.show()
 
-if year == "all" and area != "state":
-    pass
-    #pull up bar graph for locality
 
+
+#-------------------------------------------------------------------
+# All years in a Locality
+if year == "all" and area != "state":
+    format19 = DictMaker(info19)
+    format18 = DictMaker(info18)
+    format17 = DictMaker(info17)
+    format16 = DictMaker(info16)
+
+    overDict = {}
+
+    for item in format19:
+        if item[1] == area:
+            overDict.update({('2019',item[0],item[1]):format19[item]})
+    for item in format18:
+        if item[1] == area:
+            overDict.update({('2018',item[0], item[1]):format18[item]})
+    for item in format17:
+        if item[1] == area:
+            overDict.update({('2017',item[0],item[1]):format17[item]})
+    for item in format16:
+        if item[1] == area:
+            overDict.update({('2016',item[0],item[1]):format16[item]})
+
+    #rint(overDict)
+
+    labels = ['Republican','Democratic','Independent', 'Green', 'Libertarian','Write-In']
+    value19 = [0,0,0,0,0,0,0]
+    value18 = [0,0,0,0,0,0,0]
+    value17 = [0,0,0,0,0,0,0]
+    value16 = [0,0,0,0,0,0,0]
+    
+    for item in overDict:
+        if item[0] == '2019':
+            value19[labels.index(item[1])]= overDict[item]
+        if item[0] == '2018':
+            value18[labels.index(item[1])]= overDict[item]
+        if item[0] == '2017':
+            value17[labels.index(item[1])]= overDict[item]
+        if item[0] == '2016':
+            value16[labels.index(item[1])]= overDict[item]
+
+ 
+    #pull up bar graph for locality
+    value19 = np.array(value19)
+    value18 = np.array(value18)
+    value17 = np.array(value17)
+    value16 = np.array(value16)
+
+    x = np.arange(7)
+    width = .1
+
+
+    fig, ax = plt.subplots()
+    leg1 = ax.bar(x - width, value16, width, label ='2016')
+    leg2 = ax.bar(x, value17, width, label ='2017')
+    leg3 = ax.bar(x + width, value18, width, label ='2018')
+    leg4 = ax.bar(x + 2*width, value19, width, label ='2019')
+
+    ax.set_ylabel('Votes')
+    
+    ax.set_title(str(area)+ 'Party votes through the Year')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, fontsize = 6)
+    ax.legend()
+    plt.show()
+
+
+
+
+
+#-------------------------------------------------------------------
+#Specific year in Locality
 if year != "all" and area != "state":
     if year == "2019":
         format19 = DictMaker(info19)
